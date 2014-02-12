@@ -28,7 +28,7 @@ class nss {
 public:
     nss();
     nss(NSString* s);
-    NSString *string();
+    NSString *string() const;
 private:
     NSString* st;
 };
@@ -38,10 +38,12 @@ public:
     re();
     re(NSString* p);
     ~re();
+    NSRegularExpression *regex();
+    bool operator==( const nss &other ) const;
 
-    bool operator== (nss& other);
+
 private:
-    NSRegularExpression* regex;
+    NSRegularExpression* reg;
 };
 
 #endif /* defined(__RegExTest__re_class__) */

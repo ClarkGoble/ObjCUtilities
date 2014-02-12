@@ -22,13 +22,13 @@
 
 re::re()
 {
-    regex = nil;
+    reg = nil;
 }
 
 re::re(NSString* p)
 {
     NSError *error = [NSError new];
-    regex = [NSRegularExpression regularExpressionWithPattern: p options:0 error:&error];
+    reg = [NSRegularExpression regularExpressionWithPattern: p options:0 error:&error];
 }
 
 
@@ -38,11 +38,12 @@ re::~re()
 }
 
 
-bool re::operator== (nss& other)
-{
 
-    NSUInteger numhits = [this->regex numberOfMatchesInString:other.string() options:0
-                                                          range: NSMakeRange(0, [other.string() length])];
+bool re::operator== (const nss &other ) const
+{
+    NSString* s = other.string();
+    NSUInteger numhits = [this->reg numberOfMatchesInString: s options:0
+                                                          range: NSMakeRange(0, [s length])];
     return ( numhits > 0);
 }
 
@@ -58,7 +59,7 @@ nss::nss(NSString* s)
 
 }
 
-NSString* nss::string()
+NSString* nss::string() const
 {
     return st;
 
